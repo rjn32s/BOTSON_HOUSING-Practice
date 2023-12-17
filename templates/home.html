@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send JSON to Flask</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button onclick="sendJSON()">Send JSON to Flask</button>
+
+    <script>
+        function sendJSON() {
+            var jsonPayload = {
+                "male": 1,
+                "age": 39,
+                "cigsPerDay": 0,
+                "BPMeds": 0,
+                "prevalentStroke": 0,
+                "prevalentHyp": 0,
+                "diabetes": 0,
+                "totChol": 245,
+                "sysBP": 134,
+                "diaBP": 88,
+                "BMI": 23.7,
+                "heartRate": 70,
+                "glucose": 180
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5000/predict",
+                data: JSON.stringify(jsonPayload),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log("JSON sent successfully!");
+                    console.log("Response:", response);
+                },
+                error: function (error) {
+                    console.error("Error sending JSON:", error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
